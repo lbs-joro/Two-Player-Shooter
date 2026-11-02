@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -16,10 +17,18 @@ public class Health : MonoBehaviour
     [SerializeField]
     string gameOverSceneName;
 
+    [SerializeField]
+    Image healthbar;
+
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+
+        if (healthbar != null)
+        {
+            healthbar.fillAmount = health / (float)maxHealth;
+        }   
     }
 
     public void Hurt(int amount)
@@ -31,6 +40,12 @@ public class Health : MonoBehaviour
         }
 
         health -= amount;
+
+        if(healthbar != null)
+        {
+            healthbar.fillAmount = health / (float)maxHealth;
+        }
+        
         if (health <= 0)
         {
             GameOver();

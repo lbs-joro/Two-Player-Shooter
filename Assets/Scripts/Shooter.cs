@@ -17,13 +17,15 @@ public class Shooter : MonoBehaviour
     [SerializeField]
     Transform spawnLocation;
 
+    Animator anim;
+
 
     float timer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,8 +50,28 @@ public class Shooter : MonoBehaviour
                 rb.linearVelocity = fireDirection;
             }
 
+            TryPlayAnimation("shoot");
+
 
             timer = coolDown;
         }
+    }
+
+    bool TryPlayAnimation(string animationName)
+    {
+        if(anim == null)
+        {
+            return false;
+        }
+
+        int animHash = Animator.StringToHash(animationName);
+
+        if (anim.HasState(0, animHash))
+        {
+            anim.Play(animHash);
+            return true;
+        }
+
+        return false;
     }
 }

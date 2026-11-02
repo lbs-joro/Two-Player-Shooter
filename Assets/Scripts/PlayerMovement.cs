@@ -145,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
         return direction;
     }
 
+
+
     public Vector2 GetFacingDirection()
     {
         return facingDirection;
